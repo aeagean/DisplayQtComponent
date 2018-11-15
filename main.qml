@@ -1,37 +1,52 @@
-import QtQuick 2.7
-import QtQuick.Window 2.2
+import QtQuick 2.0
+import MonitorAndControlFile 1.0
+import QtQuick.Window 2.0
 
 Window {
     id: root
+
+    property variant qmlObject
+
     visible: true
     width: 640
     height: 480
     title: qsTr("Hello World")
 
+    MonitorAndControlFile {
+        id: monitorAndControlFile
+        Component.onCompleted: console.log("refused")
+        onStatusChanged: {
+            load(url)
+        }
+    }
+
     DropArea {
         anchors.fill: parent
-        onDropped: {
-//            console.log("drop.text: ", drop.text)
+        onDropped: load(drop.text.replace(/[\r\n]/g,""))//monitorAndControlFile.url = (drop.text.replace(/[\r\n]/g,""))
+    }
 
-//            loader.source = ""
-////            loader.source = drop.text
-//            loader.setSource(drop.text)
-            loadButton(drop.text)
+    function load(url) {
+        if (qmlObject != undefined) {
+            monitorAndControlFile.clear()
+            qmlObject.destroy()
         }
-    }
 
-    Timer {
-        interval: 1000; running: true; repeat: true
-        onTriggered: loadButton("C:/Users/Strong/Downloads/WheelView.qml")
-    }
+        console.log("Load: ", url)
 
-    function loadButton(url) {
-        var component = Qt.createComponent(url);
+        try {
+            var component = Qt.createComponent(url);
+        } catch(err) {
+            console.log('Error on line ' + err.qmlErrors[0].lineNumber + '\n' + err.qmlErrors[0].message);
+        }
+
+        if (component.status == Component.Error) {
+            console.log("Error loading component:", component.errorString());
+            return null;
+        }
+
         if (component.status == Component.Ready) {
-            var button = component.createObject(root);
-            button.visible = true
+            qmlObject = component.createObject(root);
+            qmlObject.visible = true
         }
-//        button.destroy(1000);
-//        Qt.createQmlObject(drop.text, root, 'CustomObject');
     }
 }
