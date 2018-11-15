@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<MonitorAndControlFile>("MonitorAndControlFile", 1, 0, "MonitorAndControlFile");
 
-    qmlEngine()->load(QUrl(QStringLiteral("qrc:/main.qml")));
+    MonitorAndControlFile::qmlEngine()->load(QUrl(QStringLiteral("qrc:/main.qml")));
+
     return app.exec();
 }

@@ -14,15 +14,16 @@ Window {
 
     MonitorAndControlFile {
         id: monitorAndControlFile
-        Component.onCompleted: console.log("refused")
         onStatusChanged: {
+            console.log(">>>>>>>>>>")
             load(url)
+
         }
     }
 
     DropArea {
         anchors.fill: parent
-        onDropped: load(drop.text.replace(/[\r\n]/g,""))//monitorAndControlFile.url = (drop.text.replace(/[\r\n]/g,""))
+        onDropped: monitorAndControlFile.url = (drop.text.replace(/[\r\n]/g,""))
     }
 
     function load(url) {
