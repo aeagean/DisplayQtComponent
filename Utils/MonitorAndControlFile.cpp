@@ -5,6 +5,7 @@
 
 void MonitorAndControlFile::clear()
 {
+    m_engine->trimComponentCache();
     m_engine->clearComponentCache();
 }
 
@@ -28,7 +29,9 @@ void MonitorAndControlFile::setUrl(QString url)
     QString file = url;
 #ifdef Q_OS_WIN
     QFileInfo fileInfo(file.remove("file:///"));
-#elif Q_OS_UNIX
+#endif
+
+#ifdef Q_OS_UNIX
     QFileInfo fileInfo(file.remove("file://"));
 #endif
 

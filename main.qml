@@ -25,7 +25,7 @@ Window {
     function load(url) {
         if (qmlObject != undefined) {
             monitorAndControlFile.clear()
-            qmlObject.destroy()
+//            qmlObject.destroy()
         }
 
         console.log("Load: ", url)
