@@ -16,7 +16,6 @@ MonitorAndControlFile::MonitorAndControlFile(QObject *parent) : QObject(parent)
 
 MonitorAndControlFile::~MonitorAndControlFile()
 {
-    qDebug()<<"quit";
 }
 
 QString MonitorAndControlFile::url()
@@ -27,7 +26,12 @@ QString MonitorAndControlFile::url()
 void MonitorAndControlFile::setUrl(QString url)
 {
     QString file = url;
+#ifdef Q_OS_WIN
+    QFileInfo fileInfo(file.remove("file:///"));
+#elif Q_OS_UNIX
     QFileInfo fileInfo(file.remove("file://"));
+#endif
+
     if (fileInfo.isFile()) {
         m_fileWatch.addPath(file);
         if (!m_monitorFiles.contains(file))
@@ -43,5 +47,6 @@ void MonitorAndControlFile::onFileChanged(QString file)
     foreach(QString file, m_monitorFiles) {
         m_fileWatch.addPath(file);
     }
+    qDebug()<<"Watch file: "<<m_fileWatch.files();
     emit statusChanged();
 }

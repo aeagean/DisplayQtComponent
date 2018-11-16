@@ -14,11 +14,7 @@ Window {
 
     MonitorAndControlFile {
         id: monitorAndControlFile
-        onStatusChanged: {
-            console.log(">>>>>>>>>>")
-            load(url)
-
-        }
+        onStatusChanged: load(url)
     }
 
     DropArea {
