@@ -25,6 +25,12 @@ Window {
     function load(url) {
         monitorAndControlFile.clear()
 
+        for (var i = 0; i < qmlObjects.length; i++) {
+            var obj = qmlObjects[i]
+            obj.visible = false
+            console.log(obj)
+        }
+
         console.log("Load: ", url)
 
         try {
@@ -41,6 +47,7 @@ Window {
         if (component.status == Component.Ready) {
             var object = component.createObject(root);
             object.visible = true
+            qmlObjects.push(object)
         }
     }
 }
