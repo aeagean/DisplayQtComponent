@@ -5,7 +5,7 @@ import QtQuick.Window 2.0
 Window {
     id: root
 
-    property variant qmlObject
+    property variant qmlObjects: []
 
     visible: true
     width: 640
@@ -23,10 +23,7 @@ Window {
     }
 
     function load(url) {
-        if (qmlObject != undefined) {
-            monitorAndControlFile.clear()
-//            qmlObject.destroy()
-        }
+        monitorAndControlFile.clear()
 
         console.log("Load: ", url)
 
@@ -42,8 +39,8 @@ Window {
         }
 
         if (component.status == Component.Ready) {
-            qmlObject = component.createObject(root);
-            qmlObject.visible = true
+            var object = component.createObject(root);
+            object.visible = true
         }
     }
 }
