@@ -8,9 +8,16 @@ Window {
     property variant qmlObjects: []
 
     visible: true
-    width: 640
-    height: 480
-    title: qsTr("Hello World")
+    width: 320
+    height: 240
+    title: qsTr("QML组件显示器v0.3")
+
+    Text {
+        anchors.centerIn: parent
+        font.pixelSize: 16
+        color: "gray"
+        text: "将QML文件拖到这里显示"
+    }
 
     MonitorAndControlFile {
         id: monitorAndControlFile

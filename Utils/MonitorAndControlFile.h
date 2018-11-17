@@ -6,8 +6,6 @@
 #include <QFileSystemWatcher>
 #include <QQmlApplicationEngine>
 
-
-
 class MonitorAndControlFile : public QObject
 {
     Q_OBJECT
