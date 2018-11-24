@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import MonitorAndControlFile 1.0
 import QtQuick.Window 2.0
 
@@ -8,15 +8,33 @@ Window {
     property variant qmlObjects: []
 
     visible: true
-    width: 320
-    height: 240
-    title: qsTr("QML组件显示器v0.3")
+    width: 320*1.5
+    height: 240*1.5
+    title: qsTr("QML组件动态显示器v0.3")
 
-    Text {
+    Column {
         anchors.centerIn: parent
-        font.pixelSize: 16
-        color: "gray"
-        text: "将QML文件拖到这里显示"
+        spacing: 10
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 16
+            color: "gray"
+            text: "将QML文件拖到这里显示"
+        }
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 16
+            color: "gray"
+            text: "修改QML文件实时动态刷新"
+        }
+    }
+
+    Image {
+        anchors.bottom: parent.bottom
+        width: parent.width; height: parent.width*800/2800
+        source: "qrc:/Other/xiaoxuesheng.jpg"
     }
 
     MonitorAndControlFile {
