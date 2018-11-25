@@ -13,28 +13,34 @@ Window {
     title: qsTr("QML组件动态显示器v0.3")
 
     Column {
-        anchors.centerIn: parent
-        spacing: 10
+        Item {
+            width: root.width; height: root.height - background.height
+            Column {
+                anchors.centerIn: parent
+                spacing: 10
 
-        Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 16
-            color: "gray"
-            text: "将QML文件拖到这里显示"
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 24
+                    color: "gray"
+                    text: "将QML文件拖到这里显示"
+                }
+
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 24
+                    color: "gray"
+                    text: "修改QML文件实时动态刷新"
+                }
+            }
         }
 
-        Text {
+        Image {
+            id: background
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 16
-            color: "gray"
-            text: "修改QML文件实时动态刷新"
+            width: root.width*0.8; height: width*800/2800
+            source: "qrc:/Other/xiaoxuesheng.jpg"
         }
-    }
-
-    Image {
-        anchors.bottom: parent.bottom
-        width: parent.width; height: parent.width*800/2800
-        source: "qrc:/Other/xiaoxuesheng.jpg"
     }
 
     MonitorAndControlFile {
@@ -52,8 +58,8 @@ Window {
 
         for (var i = 0; i < qmlObjects.length; i++) {
             var obj = qmlObjects[i]
-            obj.visible = false
-            console.log(obj)
+//            obj.visible = false
+//            console.log(obj)
         }
 
         console.log("Load: ", url)
